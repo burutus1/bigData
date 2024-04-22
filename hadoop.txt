@@ -1,1 +1,7 @@
 https://cuddly-blob-cc7.notion.site/Hadoop-cluster-424ea93572ed4b67b69094da9f44a5df
+from pyspark.ml.feature import StringIndexer
+# Пример преобразования категориальных признаков в числовые
+indexer = StringIndexer(inputCol="columnName", outputCol="columnName_indexed")
+data = indexer.fit(data).transform(data)
+# Показать результат загрузки данных
+data.show()
