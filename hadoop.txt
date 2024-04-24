@@ -5,3 +5,29 @@ indexer = StringIndexer(inputCol="columnName", outputCol="columnName_indexed")
 data = indexer.fit(data).transform(data)
 # Показать результат загрузки данных
 data.show()
+
+
+CREATE EXTERNAL TABLE `mydb`.`mytable`(
+    `product_name` string,
+    `brand_id` string,
+    `brand` string,
+    `color` string,
+    `description` string,
+    `sale_price` string)
+PARTITIONED BY (
+    `seller_id` string)
+ROW FORMAT SERDE
+    'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+    'separatorChar' = '\t',
+    'quoteChar' = '"',
+    'escapeChar' = '\\')
+STORED AS INPUTFORMAT
+    'org.apache.hadoop.mapred.TextInputFormat'
+OUTPUTFORMAT
+    'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+    'hdfs://namenode.com:port/data/mydb/mytable'
+TBLPROPERTIES (
+    'serialization.null.format' = '',
+    'skip.header.line.count' = '1')
