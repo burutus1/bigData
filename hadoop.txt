@@ -31,3 +31,6 @@ LOCATION
 TBLPROPERTIES (
     'serialization.null.format' = '',
     'skip.header.line.count' = '1')
+
+select c.ident,c.name,t.type from airport_codes as c
+LEFT JOIN airport_types as ON t.ident=c.indent;
